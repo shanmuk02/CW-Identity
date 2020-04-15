@@ -13,6 +13,7 @@
 	<version>1.0.0</version>
 	<name>CW-Identity</name>
 	<description>CW Identity Project using for Authentication, Token, Session Management</description>
+	<packaging>war</packaging>
 
 	<properties>
 		<java.version>8</java.version>
