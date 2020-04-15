@@ -2,6 +2,8 @@ package cw.identity;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -11,7 +13,7 @@ import cw.identity.config.CWIdentity;
 
 @SpringBootApplication
 @EnableAuthorizationServer
-public class CwIdentityApplication {
+public class CwIdentityApplication extends SpringBootServletInitializer {
 	
 	@Bean
 	JedisConnectionFactory jedisConnectionFactory() {
@@ -26,6 +28,11 @@ public class CwIdentityApplication {
 		return redisTemplate;
  	}
 
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(CwIdentityApplication.class);
+	}
+	
 	public static void main(String[] args) {
 		SpringApplication.run(CwIdentityApplication.class, args);
 	}
