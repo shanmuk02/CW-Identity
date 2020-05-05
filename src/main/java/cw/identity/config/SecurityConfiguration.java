@@ -21,7 +21,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	CustomDetailsService customDetailsService;
-
+	
 	@Bean
     public PasswordEncoder encoder(){
 		return new MD5PasswordEncoder();
@@ -37,6 +37,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().anyRequest().authenticated().and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.NEVER);
+//				and().exceptionHandling().authenticationEntryPoint(customAuthenticationEntryPoint).accessDeniedHandler(new CustomAccessDeniedHandler());
+//				and().exceptionHandling().authenticationEntryPoint(authExceptionEntryPoint).accessDeniedHandler(new CustomAccessDeniedHandler());
 	}
 
 	@Override

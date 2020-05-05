@@ -18,10 +18,20 @@ public class CustomDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		// TODO Auto-generated method stub
-		User user = userDao.getUserDetails(username);
-		CWIdentity.setUserId(user.getId());
-		CWIdentity.setUsername(user.getName());
-		return new CustomUser(user);
+		CustomUser customUser = null;
+		try {
+			User user = userDao.getUserDetails(username);
+			if(user == null)
+				throw new UsernameNotFoundException("User " + username + " was not found in the database");
+			customUser = new CustomUser(user);
+			CWIdentity.setUserId(user.getId());
+			CWIdentity.setUsername(user.getName());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new UsernameNotFoundException("User " + username + " was not found in the database");
+		}
+		return customUser;
 	}
 
 }

@@ -16,19 +16,21 @@ public class Session {
 	private String name;
 	private String applicationId;
 	private String applicationSecret;
-	private Date startTime;
+	private Date creationTime;
 	private Date lastAccessTime;
+	private int maxInteractiveTime;
 	
-	public Session(String token, String userId, String name, String applicationId, String applicationSecret, Date startTime,
-			Date lastAccessTime) {
+	public Session(String token, String userId, String name, String applicationId, String applicationSecret, Date creationTime,
+			Date lastAccessTime, int maxInteractiveTime) {
 		super();
 		this.token = token;
 		this.userId = userId;
 		this.name = name;
 		this.applicationId = applicationId;
 		this.applicationSecret = applicationSecret;
-		this.startTime = startTime;
+		this.creationTime = creationTime;
 		this.lastAccessTime = lastAccessTime;
+		this.maxInteractiveTime = maxInteractiveTime;
 	}
 
 	public String getToken() {
@@ -71,12 +73,12 @@ public class Session {
 		this.applicationSecret = applicationSecret;
 	}
 
-	public Date getStartTime() {
-		return startTime;
+	public Date getcreationTime() {
+		return creationTime;
 	}
 
-	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
+	public void setcreationTime(Date creationTime) {
+		this.creationTime = creationTime;
 	}
 
 	public Date getLastAccessTime() {
@@ -86,15 +88,20 @@ public class Session {
 	public void setLastAccessTime(Date lastAccessTime) {
 		this.lastAccessTime = lastAccessTime;
 	}
+	
+	public int getMaxInteractiveTime() {
+		return maxInteractiveTime;
+	}
+
+	public void setMaxInteractiveTime(int maxInteractiveTime) {
+		this.maxInteractiveTime = maxInteractiveTime;
+	}
 
 	@Override
 	public String toString() {
 		return "Session [userId=" + userId + ", name=" + name + ", applicationId=" + applicationId
-				+ ", applicationSecret=" + applicationSecret + ", startTime=" + startTime + ", lastAccessTime="
-				+ lastAccessTime + "]";
+				+ ", applicationSecret=" + applicationSecret + ", creationTime=" + creationTime + ", lastAccessTime="
+				+ lastAccessTime + ", maxInteractiveTime=" + maxInteractiveTime + "]";
 	}
-	
-	
-	
 	
 }

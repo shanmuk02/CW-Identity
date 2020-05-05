@@ -18,7 +18,9 @@ public class CWIdentity {
 	private static String username;
 	private static String userId;
 	private static String token;
+	private static String applicationId;
 	private static SessionDAO sessionDao;
+	private static int sessionMaxInteractiveTime;
 	
 	public static SessionDAO getSessionDao() {
 		return sessionDao;
@@ -60,19 +62,34 @@ public class CWIdentity {
 		CWIdentity.token = token;
 	}
 	
+	public static String getApplicationId() {
+		return applicationId;
+	}
+
+	public static void setApplicationId(String applicationId) {
+		CWIdentity.applicationId = applicationId;
+	}
+	
+	public static int getSessionMaxInteractiveTime() {
+		return sessionMaxInteractiveTime;
+	}
+
+	public static void setSessionMaxInteractiveTime(int sessionMaxInteractiveTime) {
+		CWIdentity.sessionMaxInteractiveTime = sessionMaxInteractiveTime;
+	}
+	
 	public static void insertTokenToRedis() {
 		try {
 			Optional<Session> optionalSession = sessionDao.findById(token); 
 			Session session;
 			if(!optionalSession.isPresent()) {
-				session = new Session(token, userId, username, "", "", new Date(), new Date());
+				session = new Session(token, userId, username, applicationId, "", new Date(), new Date(), sessionMaxInteractiveTime);
 				sessionDao.save(session);
 			} else {
 				session = optionalSession.get();
 				session.setLastAccessTime(new Date());
+				sessionDao.save(session);
 			}
-
-//			 (token, userId, username, "", "", new Date(), new Date());
 			
 //			if(redisTemplate.opsForHash().get("Session", token) == null) {
 //				session = new Session(token, userId, username, "", "", new Date(), new Date());
@@ -90,7 +107,7 @@ public class CWIdentity {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static String getStringFromPOJO(Object object) {
 		// Get (JSON)String from Object
 		ObjectMapper mapper = new ObjectMapper();

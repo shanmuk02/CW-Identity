@@ -26,7 +26,6 @@ public class GsonDateTypeAdapter extends TypeAdapter<Date>{
         return new Date(date);
     }
 
-//  @SuppressWarnings("resource")
     @Override
     public void write(final JsonWriter out, final Date value)
             throws IOException {

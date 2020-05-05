@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -23,6 +24,8 @@ import cw.identity.data.dao.SessionDAO;
 public class CorsFilter implements Filter {
 	
 	@Autowired SessionDAO sessionDao;
+	@Value("#{new Integer('${session.maxInteractiveTime}')}")
+	private int maxInteractiveTime;
 	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) 
@@ -36,7 +39,10 @@ public class CorsFilter implements Filter {
 		httpResponse.setHeader("Access-Control-Allow-Headers", "authorization,Content-Type, Accept, X-Requested-With, remember-me");
 		
 		//Code added by Pranav
+		String applicationId = httpRequest.getHeader("applicationId") != null ? httpRequest.getHeader("applicationId").toString() : "";
+		CWIdentity.setSessionMaxInteractiveTime(maxInteractiveTime);
 		CWIdentity.setSessionDao(sessionDao);
+		CWIdentity.setApplicationId(applicationId);
 	    //Code end by Pranav
 		
 		if("OPTIONS".equalsIgnoreCase(httpRequest.getMethod())) {
@@ -44,6 +50,7 @@ public class CorsFilter implements Filter {
 		}else {
 			chain.doFilter(request, response);
 		}
+		
 	}
 	
 	@Override
@@ -53,6 +60,6 @@ public class CorsFilter implements Filter {
 	
 	@Override
 	public void destroy() {
-	
+		
 	}
 } 
