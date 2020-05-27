@@ -5,16 +5,13 @@ import java.util.Optional;
 
 import org.springframework.data.redis.core.RedisTemplate;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-
 import cw.identity.data.dao.SessionDAO;
 import cw.identity.data.model.Session;
 
 public class CWIdentity {
 	
 	private static RedisTemplate<String, String> redisTemplate;
+	private static String clientId;
 	private static String username;
 	private static String userId;
 	private static String token;
@@ -36,6 +33,14 @@ public class CWIdentity {
 	
 	public static void setRedisTemplate(RedisTemplate<String, String> redistemplate) {
 		CWIdentity.redisTemplate = redistemplate;
+	}
+	
+	public static String getClientId() {
+		return clientId;
+	}
+	
+	public static void setClientId(String clientId) {
+		CWIdentity.clientId = clientId;
 	}
 	
 	public static String getUsername() {
@@ -81,26 +86,15 @@ public class CWIdentity {
 	public static void insertTokenToRedis() {
 		try {
 			Optional<Session> optionalSession = sessionDao.findById(token); 
-			Session session;
-			if(!optionalSession.isPresent()) {
-				session = new Session(token, userId, username, applicationId, "", new Date(), new Date(), sessionMaxInteractiveTime);
-				sessionDao.save(session);
+			Session session = optionalSession.isPresent() ? optionalSession.get() : null;
+
+			if(session==null) {
+				session = new Session(token, userId, username, clientId, applicationId, "", new Date(), new Date(), sessionMaxInteractiveTime);
 			} else {
-				session = optionalSession.get();
 				session.setLastAccessTime(new Date());
-				sessionDao.save(session);
 			}
 			
-//			if(redisTemplate.opsForHash().get("Session", token) == null) {
-//				session = new Session(token, userId, username, "", "", new Date(), new Date());
-//			} else {
-//				String json = redisTemplate.opsForHash().get("Session", token).toString();
-//				final Gson gson = new GsonBuilder().registerTypeAdapter(Date.class, new GsonDateTypeAdapter()).create();
-//				session = gson.fromJson(json, Session.class);
-//				session.setLastAccessTime(new Date());
-//			}
-//			String json = getStringFromPOJO(session);
-//			redisTemplate.opsForHash().put("Session", token, json);
+			sessionDao.save(session);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.err.println("Error in insertTokenToRedis Process");
@@ -108,18 +102,18 @@ public class CWIdentity {
 		}
 	}
 
-	public static String getStringFromPOJO(Object object) {
-		// Get (JSON)String from Object
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.enable(SerializationFeature.INDENT_OUTPUT);
-		try {
-			String json = mapper.writeValueAsString(object);
-			return json;
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return "";
-		}
-	}
+//	public static String getStringFromPOJO(Object object) {
+//		// Get (JSON)String from Object
+//		ObjectMapper mapper = new ObjectMapper();
+//		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+//		try {
+//			String json = mapper.writeValueAsString(object);
+//			return json;
+//		} catch (JsonProcessingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			return "";
+//		}
+//	}
 	
 }

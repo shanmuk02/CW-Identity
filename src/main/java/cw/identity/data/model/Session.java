@@ -14,18 +14,20 @@ public class Session {
 	private String token;
 	private String userId;
 	private String name;
+	private String clientId;
 	private String applicationId;
 	private String applicationSecret;
 	private Date creationTime;
 	private Date lastAccessTime;
 	private int maxInteractiveTime;
 	
-	public Session(String token, String userId, String name, String applicationId, String applicationSecret, Date creationTime,
+	public Session(String token, String userId, String name, String clientId, String applicationId, String applicationSecret, Date creationTime,
 			Date lastAccessTime, int maxInteractiveTime) {
 		super();
 		this.token = token;
 		this.userId = userId;
 		this.name = name;
+		this.clientId = clientId;
 		this.applicationId = applicationId;
 		this.applicationSecret = applicationSecret;
 		this.creationTime = creationTime;
@@ -55,6 +57,14 @@ public class Session {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getClientId() {
+		return clientId;
+	}
+
+	public void setClientId(String clientId) {
+		this.clientId = clientId;
 	}
 
 	public String getApplicationId() {

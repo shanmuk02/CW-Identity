@@ -26,6 +26,7 @@ public class CustomDetailsService implements UserDetailsService {
 			customUser = new CustomUser(user);
 			CWIdentity.setUserId(user.getId());
 			CWIdentity.setUsername(user.getName());
+			CWIdentity.setClientId(user.getAdClientId());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

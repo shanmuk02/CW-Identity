@@ -28,6 +28,8 @@ public class User {
 	private String lastname;
 	@Column(value = "name")
 	private String name;
+	@Column(value = "ad_client_id")
+	private String adClientId;
 	private Collection<GrantedAuthority> grantedAuthoritiesList = new ArrayList<>();
 	
 	public User() {
@@ -36,7 +38,7 @@ public class User {
 	}
 
 	public User(String id, String username, String password, String firstname, String lastname, String name,
-			Collection<GrantedAuthority> grantedAuthoritiesList) {
+			String adClientId, Collection<GrantedAuthority> grantedAuthoritiesList) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -44,6 +46,7 @@ public class User {
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.name = name;
+		this.adClientId = adClientId;
 		this.grantedAuthoritiesList = grantedAuthoritiesList;
 	}
 
@@ -95,6 +98,14 @@ public class User {
 		this.name = name;
 	}
 
+	public String getAdClientId() {
+		return adClientId;
+	}
+
+	public void setAdClientId(String adClientId) {
+		this.adClientId = adClientId;
+	}
+	
 	public Collection<GrantedAuthority> getGrantedAuthoritiesList() {
 		return grantedAuthoritiesList;
 	}

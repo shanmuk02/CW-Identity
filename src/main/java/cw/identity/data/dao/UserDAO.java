@@ -31,6 +31,7 @@ public class UserDAO {
 		userRS.setName(rs.getString("name"));
 		userRS.setUsername(rs.getString("username"));
 		userRS.setPassword(rs.getString("password"));
+		userRS.setAdClientId(rs.getString("ad_client_id"));
 		return userRS;
 		});
 
