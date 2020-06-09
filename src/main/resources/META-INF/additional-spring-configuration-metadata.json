@@ -1,0 +1,17 @@
+{"properties": [
+  {
+    "name": "tokenstore.type",
+    "type": "java.lang.String",
+    "description": "A description for 'tokenstore.type'"
+  },
+  {
+    "name": "token.timeout",
+    "type": "java.lang.String",
+    "description": "A description for 'token.timeout'"
+  },
+  {
+    "name": "session.maxInteractiveTime",
+    "type": "java.lang.String",
+    "description": "A description for 'session.maxInteractiveTime'"
+  }
+]}

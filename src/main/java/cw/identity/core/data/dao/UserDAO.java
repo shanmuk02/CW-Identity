@@ -1,4 +1,4 @@
-package cw.identity.data.dao;
+package cw.identity.core.data.dao;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Repository;
 
-import cw.identity.data.model.User;
+import cw.identity.core.data.model.User;
 
 @Repository
 public class UserDAO {
@@ -24,17 +24,17 @@ public class UserDAO {
 				
 		List<User> userList =  jdbcTemplate.query("SELECT * FROM ad_user WHERE USERNAME=?", 
 				new String[] { username }, (ResultSet rs, int rowNum) -> {
-		User userRS = new User();
-		userRS.setId(rs.getString("AD_User_ID"));
-		userRS.setFirstname(rs.getString("firstname"));
-		userRS.setLastname(rs.getString("lastname"));
-		userRS.setName(rs.getString("name"));
-		userRS.setUsername(rs.getString("username"));
-		userRS.setPassword(rs.getString("password"));
-		userRS.setAdClientId(rs.getString("ad_client_id"));
-		return userRS;
-		});
-
+					User userRS = new User();
+					userRS.setId(rs.getString("AD_User_ID"));
+					userRS.setFirstname(rs.getString("firstname"));
+					userRS.setLastname(rs.getString("lastname"));
+					userRS.setName(rs.getString("name"));
+					userRS.setUsername(rs.getString("username"));
+					userRS.setPassword(rs.getString("password"));
+					userRS.setAdClientId(rs.getString("ad_client_id"));
+					return userRS;
+				});
+		
 		if (userList != null && userList.size() > 0) {
 			GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("ROLE_SYSTEMADMIN");
 			grantedAuthoritiesList.add(grantedAuthority);

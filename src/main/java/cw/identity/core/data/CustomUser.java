@@ -1,4 +1,4 @@
-package cw.identity.data;
+package cw.identity.core.data;
 
 import cw.identity.core.data.model.User;
 

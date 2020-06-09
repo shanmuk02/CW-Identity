@@ -11,17 +11,21 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+
+import cw.identity.mongo.config.MongoTokenStore;
+import cw.identity.redis.config.CustomRedisTokenStore;
 
 @Configuration
 public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 	
-	@Value("#{new Integer('${token.timeout}')}")
-	private int tokenTimeout;
+	@Value("#{new Integer('${token.timeout}')}") private int tokenTimeout;
+	@Value("#{('${tokenstore.type}')}") private String tokenStoreType;
 	private String clientId = "talk2amareswaran";
 	private String clientSecret = "my-secret";
 	private String privateKey = "123";
-//	private String publicKey = "456";
 
 	@Autowired
 	@Qualifier("authenticationManagerBean")
@@ -37,9 +41,14 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 		return converter;
 	}
 	
-	public CustomRedisTokenStore tokenStore() {
-		return new CustomRedisTokenStore(new JedisConnectionFactory());
-	}
+	public TokenStore tokenStore() {
+		if(tokenStoreType.equalsIgnoreCase("MONGO"))
+			return new MongoTokenStore();
+		else if(tokenStoreType.equalsIgnoreCase("REDIS"))
+			return new CustomRedisTokenStore(new JedisConnectionFactory());
+		else
+			return new JwtTokenStore(tokenEnhancer());
+    }
 	
 //	public JwtTokenStore tokenStore() {
 //		return new JwtTokenStore(tokenEnhancer());

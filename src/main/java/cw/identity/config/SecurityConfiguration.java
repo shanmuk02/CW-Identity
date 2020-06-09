@@ -12,7 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import cw.identity.data.CustomDetailsService;
+import cw.identity.core.data.CustomDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -37,8 +37,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().anyRequest().authenticated().and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.NEVER);
-//				and().exceptionHandling().authenticationEntryPoint(customAuthenticationEntryPoint).accessDeniedHandler(new CustomAccessDeniedHandler());
-//				and().exceptionHandling().authenticationEntryPoint(authExceptionEntryPoint).accessDeniedHandler(new CustomAccessDeniedHandler());
 	}
 
 	@Override

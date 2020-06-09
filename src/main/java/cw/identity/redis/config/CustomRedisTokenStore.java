@@ -1,4 +1,4 @@
-package cw.identity.config;
+package cw.identity.redis.config;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -23,6 +23,8 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStoreSerializationStrategy;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.ReflectionUtils;
+
+import cw.identity.config.CWIdentity;
 
 public class CustomRedisTokenStore implements TokenStore {
 	
@@ -232,7 +234,7 @@ public class CustomRedisTokenStore implements TokenStore {
 
 			// Code added by Pranav
 			CWIdentity.setToken(token.getValue());
-			CWIdentity.insertTokenToRedis();
+			CWRedis.insertTokenToRedis();
 			// Code end by Pranav
 			
 			conn.closePipeline();

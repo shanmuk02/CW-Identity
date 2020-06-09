@@ -1,4 +1,4 @@
-package cw.identity.data.model;
+package cw.identity.core.data.model;
 
 import java.util.ArrayList;
 import java.util.Collection;

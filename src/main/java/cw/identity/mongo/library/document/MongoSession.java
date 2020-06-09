@@ -1,28 +1,31 @@
-package cw.identity.data.model;
+package cw.identity.mongo.library.document;
 
 import java.util.Date;
 
-import javax.validation.constraints.NotNull;
-
 import org.springframework.data.annotation.Id;
-import org.springframework.data.redis.core.RedisHash;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@RedisHash(value = "Session")
-public class Session {
+@Document(collection = "mongo_session")
+public class MongoSession {
 	
-	@Id @NotNull
+	@Id
+	private String id;
 	private String token;
 	private String userId;
 	private String name;
 	private String clientId;
-	private String applicationId;
+    private String applicationId;
 	private String applicationSecret;
 	private Date creationTime;
 	private Date lastAccessTime;
 	private int maxInteractiveTime;
 	
-	public Session(String token, String userId, String name, String clientId, String applicationId, String applicationSecret, Date creationTime,
-			Date lastAccessTime, int maxInteractiveTime) {
+	public MongoSession() {
+		
+	}
+	
+	public MongoSession(String token, String userId, String name, String clientId, String applicationId,
+			String applicationSecret, Date creationTime, Date lastAccessTime, int maxInteractiveTime) {
 		super();
 		this.token = token;
 		this.userId = userId;
@@ -42,7 +45,7 @@ public class Session {
 	public void setToken(String token) {
 		this.token = token;
 	}
-	
+
 	public String getUserId() {
 		return userId;
 	}
@@ -58,7 +61,7 @@ public class Session {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getClientId() {
 		return clientId;
 	}
@@ -83,11 +86,11 @@ public class Session {
 		this.applicationSecret = applicationSecret;
 	}
 
-	public Date getcreationTime() {
+	public Date getCreationTime() {
 		return creationTime;
 	}
 
-	public void setcreationTime(Date creationTime) {
+	public void setCreationTime(Date creationTime) {
 		this.creationTime = creationTime;
 	}
 
@@ -98,7 +101,7 @@ public class Session {
 	public void setLastAccessTime(Date lastAccessTime) {
 		this.lastAccessTime = lastAccessTime;
 	}
-	
+
 	public int getMaxInteractiveTime() {
 		return maxInteractiveTime;
 	}
@@ -106,12 +109,6 @@ public class Session {
 	public void setMaxInteractiveTime(int maxInteractiveTime) {
 		this.maxInteractiveTime = maxInteractiveTime;
 	}
-
-	@Override
-	public String toString() {
-		return "Session [userId=" + userId + ", name=" + name + ", applicationId=" + applicationId
-				+ ", applicationSecret=" + applicationSecret + ", creationTime=" + creationTime + ", lastAccessTime="
-				+ lastAccessTime + ", maxInteractiveTime=" + maxInteractiveTime + "]";
-	}
 	
+
 }

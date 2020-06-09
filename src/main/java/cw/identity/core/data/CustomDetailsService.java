@@ -1,4 +1,4 @@
-package cw.identity.data;
+package cw.identity.core.data;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import cw.identity.config.CWIdentity;
-import cw.identity.data.dao.UserDAO;
-import cw.identity.data.model.User;
+import cw.identity.core.data.model.User;
+import cw.identity.core.data.dao.UserDAO;
 
 @Service
 public class CustomDetailsService implements UserDetailsService {

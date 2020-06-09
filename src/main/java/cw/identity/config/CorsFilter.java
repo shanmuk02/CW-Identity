@@ -11,21 +11,16 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import cw.identity.data.dao.SessionDAO;
-
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class CorsFilter implements Filter {
 	
-	@Autowired SessionDAO sessionDao;
-	@Value("#{new Integer('${session.maxInteractiveTime}')}")
-	private int maxInteractiveTime;
+	@Value("#{new Integer('${session.maxInteractiveTime}')}") private int maxInteractiveTime;
 	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) 
@@ -41,7 +36,6 @@ public class CorsFilter implements Filter {
 		//Code added by Pranav
 		String applicationId = httpRequest.getHeader("applicationId") != null ? httpRequest.getHeader("applicationId").toString() : "";
 		CWIdentity.setSessionMaxInteractiveTime(maxInteractiveTime);
-		CWIdentity.setSessionDao(sessionDao);
 		CWIdentity.setApplicationId(applicationId);
 	    //Code end by Pranav
 		
