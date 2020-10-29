@@ -40,6 +40,10 @@ public class MongoUserDetailsService implements UserDetailsService {
 				CWIdentity.setName(user.getName());
 				CWIdentity.setDefaultCsRoleId(user.getDefaultCsRoleId());
 				CWIdentity.setDefaultCsBunitId(user.getDefaultCsBunitId());
+				System.out.println("In MongoUserDetailsService - ");
+				System.out.println("Role ID - "+user.getDefaultCsRoleId());
+				System.out.println("BUNIT ID - "+user.getDefaultCsBunitId());
+				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

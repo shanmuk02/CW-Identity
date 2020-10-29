@@ -85,6 +85,10 @@ public class MongoTokenStore implements TokenStore {
 		mongoSessionQuery.addCriteria(Criteria.where("token").is(token));
 		MongoSession mongoSession = mongoTemplate.findOne(mongoSessionQuery, MongoSession.class);
 		
+		System.out.println("In Create Session - ");
+		System.out.println("Role ID - "+CWIdentity.getDefaultCsRoleId());
+		System.out.println("BUNIT ID - "+CWIdentity.getDefaultCsBunitId());
+		
 		if(mongoSession==null) {
 			mongoSession = new MongoSession();
 			
