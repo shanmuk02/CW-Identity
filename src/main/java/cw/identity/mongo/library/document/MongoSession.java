@@ -7,35 +7,43 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "mongo_session")
 public class MongoSession {
-	
+
 	@Id
 	private String id;
 	private String token;
 	private String userId;
 	private String name;
+	private String username;
 	private String clientId;
-    private String applicationId;
+	private String applicationId;
 	private String applicationSecret;
 	private Date creationTime;
 	private Date lastAccessTime;
 	private int maxInteractiveTime;
-	
+	private String roleId;
+	private String bunitId;
+
 	public MongoSession() {
-		
+
 	}
-	
-	public MongoSession(String token, String userId, String name, String clientId, String applicationId,
-			String applicationSecret, Date creationTime, Date lastAccessTime, int maxInteractiveTime) {
+
+	public MongoSession(String id, String token, String userId, String name, String username, String clientId,
+			String applicationId, String applicationSecret, Date creationTime, Date lastAccessTime,
+			int maxInteractiveTime, String roleId, String bunitId) {
 		super();
+		this.id = id;
 		this.token = token;
 		this.userId = userId;
 		this.name = name;
+		this.username = username;
 		this.clientId = clientId;
 		this.applicationId = applicationId;
 		this.applicationSecret = applicationSecret;
 		this.creationTime = creationTime;
 		this.lastAccessTime = lastAccessTime;
 		this.maxInteractiveTime = maxInteractiveTime;
+		this.roleId = roleId;
+		this.bunitId = bunitId;
 	}
 
 	public String getToken() {
@@ -60,6 +68,14 @@ public class MongoSession {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getClientId() {
@@ -109,6 +125,21 @@ public class MongoSession {
 	public void setMaxInteractiveTime(int maxInteractiveTime) {
 		this.maxInteractiveTime = maxInteractiveTime;
 	}
-	
+
+	public String getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(String roleId) {
+		this.roleId = roleId;
+	}
+
+	public String getBunitId() {
+		return bunitId;
+	}
+
+	public void setBunitId(String bunitId) {
+		this.bunitId = bunitId;
+	}
 
 }

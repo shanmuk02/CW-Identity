@@ -90,14 +90,19 @@ public class MongoTokenStore implements TokenStore {
 			
 	        mongoSession.setClientId(CWIdentity.getClientId());
 	        mongoSession.setToken(token);
-	        mongoSession.setName(CWIdentity.getUsername());
+	        mongoSession.setName(CWIdentity.getName());
+	        mongoSession.setUsername(CWIdentity.getUsername());
 	        mongoSession.setUserId(CWIdentity.getUserId());
 	        mongoSession.setApplicationId(CWIdentity.getApplicationId());
 	        mongoSession.setMaxInteractiveTime(CWIdentity.getSessionMaxInteractiveTime());
 	        mongoSession.setCreationTime(new Date());
 	        mongoSession.setLastAccessTime(new Date());
+	        mongoSession.setRoleId(CWIdentity.getDefaultCsRoleId());
+	        mongoSession.setBunitId(CWIdentity.getDefaultCsBunitId());
 		} else {
 			mongoSession.setLastAccessTime(new Date());
+			mongoSession.setRoleId(CWIdentity.getDefaultCsRoleId());
+	        mongoSession.setBunitId(CWIdentity.getDefaultCsBunitId());
 		}
 		mongoTemplate.save(mongoSession);
     }

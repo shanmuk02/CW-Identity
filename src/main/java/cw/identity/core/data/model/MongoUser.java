@@ -8,26 +8,45 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Document(collection = "cs_user")
 public class MongoUser {
 
-	@Id private ObjectId id;
-	@Field(name = "cs_user_id") private  String csUserId; 
-	@Field(name = "firstname") private  String firstname; 
-	@Field(name = "lastname") private  String lastname;
-	@Field(name = "name") private  String name; 
-	@Field(name = "password") private  String password;
-	@Field(name = "email") private  String email;
-	@Field(name = "description") private  String description; 
-	@Field(name = "username") 	private  String username ;
-	@Field(name = "cs_window_id") private  String csWindowId; 
-    @Field(name = "created") private  String created;
-    @Field(name = "createdby") private  String createdby;
-    @Field(name = "cs_bunit_id") private  String csBunitId;
-    @Field(name = "cs_client_id") private  String csClientId;
-    @Field(name = "isactive")  private  String isactive;
-    @Field(name = "updated")  private  String updated;
-    @Field(name = "updatedby")  private  String updatedby;
-    @Field(name = "defaultCsRoleId")  private  String defaultCsRoleId;
-    @Field(name = "defaultCsBunitId")  private  String defaultCsBunitId;
-	
+	@Id
+	private ObjectId id;
+	@Field(name = "cs_user_id")
+	private String csUserId;
+	@Field(name = "firstname")
+	private String firstname;
+	@Field(name = "lastname")
+	private String lastname;
+	@Field(name = "name")
+	private String name;
+	@Field(name = "password")
+	private String password;
+	@Field(name = "email")
+	private String email;
+	@Field(name = "description")
+	private String description;
+	@Field(name = "username")
+	private String username;
+	@Field(name = "cs_window_id")
+	private String csWindowId;
+	@Field(name = "created")
+	private String created;
+	@Field(name = "createdby")
+	private String createdby;
+	@Field(name = "cs_bunit_id")
+	private String csBunitId;
+	@Field(name = "cs_client_id")
+	private String csClientId;
+	@Field(name = "isactive")
+	private String isactive;
+	@Field(name = "updated")
+	private String updated;
+	@Field(name = "updatedby")
+	private String updatedby;
+	@Field(name = "defaultCsRoleId")
+	private String defaultCsRoleId;
+	@Field(name = "defaultCsBunitId")
+	private String defaultCsBunitId;
+
 	public ObjectId getId() {
 		return id;
 	}
@@ -179,5 +198,5 @@ public class MongoUser {
 	public void setDefaultCsBunitId(String defaultCsBunitId) {
 		this.defaultCsBunitId = defaultCsBunitId;
 	}
-    
+
 }
