@@ -31,7 +31,7 @@ public class CorsFilter implements Filter {
 		httpResponse.setHeader("Access-Control-Allow-Origin", "*");
 		httpResponse.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE");
 		httpResponse.setHeader("Access-Control-Max-Age", "4800");
-		httpResponse.setHeader("Access-Control-Allow-Headers", "authorization,Content-Type, Accept, X-Requested-With, remember-me");
+		httpResponse.setHeader("Access-Control-Allow-Headers", "authorization,Content-Type, Accept, X-Requested-With, remember-me, applicationId");
 		
 		//Code added by Pranav
 		String applicationId = httpRequest.getHeader("applicationId") != null ? httpRequest.getHeader("applicationId").toString() : "";

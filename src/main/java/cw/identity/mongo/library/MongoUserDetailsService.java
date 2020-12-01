@@ -2,11 +2,14 @@ package cw.identity.mongo.library;
 
 import cw.identity.config.CWIdentity;
 import cw.identity.core.data.CustomMongoUser;
+import cw.identity.core.data.CustomNotonUser;
 import cw.identity.core.data.CustomUser;
 import cw.identity.core.data.dao.MongoUserDAO;
 import cw.identity.core.data.dao.UserDAO;
 import cw.identity.core.data.model.MongoUser;
+import cw.identity.core.data.model.NotonUser;
 import cw.identity.core.data.model.User;
+import cw.identity.core.data.dao.NotonUserDAO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,36 +23,57 @@ public class MongoUserDetailsService implements UserDetailsService {
 
 	@Autowired private UserDAO userDao;
 	@Autowired MongoUserDAO mongoUserDao;
+	@Autowired NotonUserDAO notonUserDao;
 	@Value("#{('${user.db}')}") private String userDB;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     	
     	if(userDB.equalsIgnoreCase("MONGO")) {
-			// MONGO DB for userDetails
-			CustomMongoUser customMongoUser = null;
-			try {
-				MongoUser user = mongoUserDao.getUserDetails(username);
-				if(user == null)
+    		// MONGO DB for userDetails
+    		if(CWIdentity.getApplicationId()!=null && CWIdentity.getApplicationId().contains("NOTON")) {
+    			// nt_user Table
+    			CustomNotonUser customNotonUser = null;
+    			try {
+    				NotonUser user = notonUserDao.getUserDetails(username);
+    				if(user == null)
+    					throw new UsernameNotFoundException("User " + username + " was not found in the database");
+    				
+    				customNotonUser = new CustomNotonUser(user);
+    				CWIdentity.setUserId(user.getUserId().toString());
+    				CWIdentity.setUsername(user.getUsername());
+    				CWIdentity.setClientId(user.getClientId());
+    				CWIdentity.setName(user.getName());
+    				CWIdentity.setDefaultCsRoleId(null);
+    				CWIdentity.setDefaultCsBunitId(null);
+    			} catch (Exception e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    				throw new UsernameNotFoundException("User " + username + " was not found in the database");
+    			}
+    			return customNotonUser;
+    		} else {
+    			// cs_user Table
+    			CustomMongoUser customMongoUser = null;
+				try {
+					MongoUser user = mongoUserDao.getUserDetails(username);
+					if(user == null)
+						throw new UsernameNotFoundException("User " + username + " was not found in the database");
+	
+					customMongoUser = new CustomMongoUser(user);
+					CWIdentity.setUserId(user.getCsUserId());
+					CWIdentity.setUsername(user.getUsername());
+					CWIdentity.setClientId(user.getCsClientId());
+					CWIdentity.setName(user.getName());
+					CWIdentity.setDefaultCsRoleId(user.getDefaultCsRoleId());
+					CWIdentity.setDefaultCsBunitId(user.getDefaultCsBunitId());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 					throw new UsernameNotFoundException("User " + username + " was not found in the database");
-
-				customMongoUser = new CustomMongoUser(user);
-				CWIdentity.setUserId(user.getCsUserId());
-				CWIdentity.setUsername(user.getUsername());
-				CWIdentity.setClientId(user.getCsClientId());
-				CWIdentity.setName(user.getName());
-				CWIdentity.setDefaultCsRoleId(user.getDefaultCsRoleId());
-				CWIdentity.setDefaultCsBunitId(user.getDefaultCsBunitId());
-				System.out.println("In MongoUserDetailsService - ");
-				System.out.println("Role ID - "+user.getDefaultCsRoleId());
-				System.out.println("BUNIT ID - "+user.getDefaultCsBunitId());
-				
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				throw new UsernameNotFoundException("User " + username + " was not found in the database");
-			}
-			return customMongoUser;
+				}
+				return customMongoUser;
+    		}
 		} else {
 			// POSTGRES DB for userDetails
 			CustomUser customUser = null;
