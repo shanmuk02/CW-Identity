@@ -22,11 +22,11 @@ public class MongoSession {
 	private int maxInteractiveTime;
 	private String roleId;
 	private String bunitId;
-	private String LocalIPAddress;
-	private String PublicIPAddress;
-	private String SystemInformation;
-	private String Browser;
-	private String BrowserVersion;
+	private String localIPAddress;
+	private String publicIPAddress;
+	private String systemInformation;
+	private String browser;
+	private String browserVersion;
 
 	public MongoSession() {
 
@@ -50,11 +50,11 @@ public class MongoSession {
 		this.maxInteractiveTime = maxInteractiveTime;
 		this.roleId = roleId;
 		this.bunitId = bunitId;
-		LocalIPAddress = localIPAddress;
-		PublicIPAddress = publicIPAddress;
-		SystemInformation = systemInformation;
-		Browser = browser;
-		BrowserVersion = browserVersion;
+		this.localIPAddress = localIPAddress;
+		this.publicIPAddress = publicIPAddress;
+		this.systemInformation = systemInformation;
+		this.browser = browser;
+		this.browserVersion = browserVersion;
 	}
 
 	public String getToken() {
@@ -154,43 +154,43 @@ public class MongoSession {
 	}
 
 	public String getLocalIPAddress() {
-		return LocalIPAddress;
+		return localIPAddress;
 	}
 
 	public void setLocalIPAddress(String localIPAddress) {
-		LocalIPAddress = localIPAddress;
+		this.localIPAddress = localIPAddress;
 	}
 
 	public String getPublicIPAddress() {
-		return PublicIPAddress;
+		return publicIPAddress;
 	}
 
 	public void setPublicIPAddress(String publicIPAddress) {
-		PublicIPAddress = publicIPAddress;
+		this.publicIPAddress = publicIPAddress;
 	}
 
 	public String getSystemInformation() {
-		return SystemInformation;
+		return systemInformation;
 	}
 
 	public void setSystemInformation(String systemInformation) {
-		SystemInformation = systemInformation;
+		this.systemInformation = systemInformation;
 	}
 
 	public String getBrowser() {
-		return Browser;
+		return browser;
 	}
 
 	public void setBrowser(String browser) {
-		Browser = browser;
+		this.browser = browser;
 	}
 
 	public String getBrowserVersion() {
-		return BrowserVersion;
+		return browserVersion;
 	}
 
 	public void setBrowserVersion(String browserVersion) {
-		BrowserVersion = browserVersion;
+		this.browserVersion = browserVersion;
 	}
 
 }
