@@ -31,12 +31,24 @@ public class CorsFilter implements Filter {
 		httpResponse.setHeader("Access-Control-Allow-Origin", "*");
 		httpResponse.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE");
 		httpResponse.setHeader("Access-Control-Max-Age", "4800");
-		httpResponse.setHeader("Access-Control-Allow-Headers", "authorization,Content-Type, Accept, X-Requested-With, remember-me, ApplicationId");
+		httpResponse.setHeader("Access-Control-Allow-Headers", "authorization,Content-Type, Accept, X-Requested-With, remember-me, "
+				+ "ApplicationId, LocalIPAddress, PublicIPAddress, SystemInformation, Browser, BrowserVersion");
 		
 		//Code added by Pranav
 		String applicationId = httpRequest.getHeader("ApplicationId") != null ? httpRequest.getHeader("ApplicationId").toString() : "";
+		String localIPAddress = httpRequest.getHeader("LocalIPAddress") != null ? httpRequest.getHeader("LocalIPAddress").toString() : "";
+		String publicIPAddress = httpRequest.getHeader("PublicIPAddress") != null ? httpRequest.getHeader("PublicIPAddress").toString() : "";
+		String systemInformation = httpRequest.getHeader("SystemInformation") != null ? httpRequest.getHeader("SystemInformation").toString() : "";
+		String browser = httpRequest.getHeader("Browser") != null ? httpRequest.getHeader("Browser").toString() : "";
+		String browserVersion = httpRequest.getHeader("BrowserVersion") != null ? httpRequest.getHeader("BrowserVersion").toString() : "";
+		
 		CWIdentity.setSessionMaxInteractiveTime(maxInteractiveTime);
 		CWIdentity.setApplicationId(applicationId);
+		CWIdentity.setLocalIPAddress(localIPAddress);
+		CWIdentity.setPublicIPAddress(publicIPAddress);
+		CWIdentity.setSystemInformation(systemInformation);
+		CWIdentity.setBrowser(browser);
+		CWIdentity.setBrowserVersion(browserVersion);
 	    //Code end by Pranav
 		
 		if("OPTIONS".equalsIgnoreCase(httpRequest.getMethod())) {

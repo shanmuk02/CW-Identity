@@ -22,6 +22,11 @@ public class MongoSession {
 	private int maxInteractiveTime;
 	private String roleId;
 	private String bunitId;
+	private String LocalIPAddress;
+	private String PublicIPAddress;
+	private String SystemInformation;
+	private String Browser;
+	private String BrowserVersion;
 
 	public MongoSession() {
 
@@ -29,7 +34,8 @@ public class MongoSession {
 
 	public MongoSession(String id, String token, String userId, String name, String username, String clientId,
 			String applicationId, String applicationSecret, Date creationTime, Date lastAccessTime,
-			int maxInteractiveTime, String roleId, String bunitId) {
+			int maxInteractiveTime, String roleId, String bunitId, String localIPAddress, String publicIPAddress,
+			String systemInformation, String browser, String browserVersion) {
 		super();
 		this.id = id;
 		this.token = token;
@@ -44,6 +50,11 @@ public class MongoSession {
 		this.maxInteractiveTime = maxInteractiveTime;
 		this.roleId = roleId;
 		this.bunitId = bunitId;
+		LocalIPAddress = localIPAddress;
+		PublicIPAddress = publicIPAddress;
+		SystemInformation = systemInformation;
+		Browser = browser;
+		BrowserVersion = browserVersion;
 	}
 
 	public String getToken() {
@@ -140,6 +151,46 @@ public class MongoSession {
 
 	public void setBunitId(String bunitId) {
 		this.bunitId = bunitId;
+	}
+
+	public String getLocalIPAddress() {
+		return LocalIPAddress;
+	}
+
+	public void setLocalIPAddress(String localIPAddress) {
+		LocalIPAddress = localIPAddress;
+	}
+
+	public String getPublicIPAddress() {
+		return PublicIPAddress;
+	}
+
+	public void setPublicIPAddress(String publicIPAddress) {
+		PublicIPAddress = publicIPAddress;
+	}
+
+	public String getSystemInformation() {
+		return SystemInformation;
+	}
+
+	public void setSystemInformation(String systemInformation) {
+		SystemInformation = systemInformation;
+	}
+
+	public String getBrowser() {
+		return Browser;
+	}
+
+	public void setBrowser(String browser) {
+		Browser = browser;
+	}
+
+	public String getBrowserVersion() {
+		return BrowserVersion;
+	}
+
+	public void setBrowserVersion(String browserVersion) {
+		BrowserVersion = browserVersion;
 	}
 
 }

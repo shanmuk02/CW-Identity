@@ -88,26 +88,25 @@ public class MongoTokenStore implements TokenStore {
 		if(mongoSession==null) {
 			mongoSession = new MongoSession();
 			
-	        mongoSession.setClientId(CWIdentity.getClientId());
 	        mongoSession.setToken(token);
-	        mongoSession.setName(CWIdentity.getName());
 	        mongoSession.setUsername(CWIdentity.getUsername());
-	        mongoSession.setUserId(CWIdentity.getUserId());
-	        mongoSession.setApplicationId(CWIdentity.getApplicationId());
 	        mongoSession.setMaxInteractiveTime(CWIdentity.getSessionMaxInteractiveTime());
 	        mongoSession.setCreationTime(new Date());
-	        mongoSession.setLastAccessTime(new Date());
-	        mongoSession.setRoleId(CWIdentity.getDefaultCsRoleId());
-	        mongoSession.setBunitId(CWIdentity.getDefaultCsBunitId());
-		} else {
-			mongoSession.setClientId(CWIdentity.getClientId());
-	        mongoSession.setUserId(CWIdentity.getUserId());
-	        mongoSession.setName(CWIdentity.getName());
-	        mongoSession.setApplicationId(CWIdentity.getApplicationId());
-			mongoSession.setLastAccessTime(new Date());
-			mongoSession.setRoleId(CWIdentity.getDefaultCsRoleId());
-	        mongoSession.setBunitId(CWIdentity.getDefaultCsBunitId());
-		}
+	    } 
+		
+		mongoSession.setClientId(CWIdentity.getClientId());
+		mongoSession.setUserId(CWIdentity.getUserId());
+		mongoSession.setName(CWIdentity.getName());
+		mongoSession.setApplicationId(CWIdentity.getApplicationId());
+		mongoSession.setLastAccessTime(new Date());
+		mongoSession.setRoleId(CWIdentity.getDefaultCsRoleId());
+        mongoSession.setBunitId(CWIdentity.getDefaultCsBunitId());
+        mongoSession.setLocalIPAddress(CWIdentity.getLocalIPAddress());
+        mongoSession.setPublicIPAddress(CWIdentity.getPublicIPAddress());
+        mongoSession.setSystemInformation(CWIdentity.getSystemInformation());
+        mongoSession.setBrowser(CWIdentity.getBrowser());
+        mongoSession.setBrowserVersion(CWIdentity.getBrowserVersion());
+
 		mongoTemplate.save(mongoSession);
     }
 

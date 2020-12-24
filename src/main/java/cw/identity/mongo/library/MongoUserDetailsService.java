@@ -44,7 +44,7 @@ public class MongoUserDetailsService implements UserDetailsService {
     				CWIdentity.setUsername(user.getUsername());
     				CWIdentity.setClientId(user.getClientId());
     				CWIdentity.setName(user.getName());
-    				CWIdentity.setDefaultCsRoleId(null);
+    				CWIdentity.setDefaultCsRoleId(user.getNotonRoleId());
     				CWIdentity.setDefaultCsBunitId(null);
     			} catch (Exception e) {
     				// TODO Auto-generated catch block

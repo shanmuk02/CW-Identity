@@ -36,6 +36,8 @@ public class NotonUser {
 	@Field("email") private String email;
 
 	@Field("phone") private String phone;
+	
+	@Field("nt_noton_role_id") private String notonRoleId;
 
 	public ObjectId getUserId() {
 		return userId;
@@ -147,6 +149,14 @@ public class NotonUser {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public String getNotonRoleId() {
+		return notonRoleId;
+	}
+
+	public void setNotonRoleId(String notonRoleId) {
+		this.notonRoleId = notonRoleId;
 	}
 	
 }
