@@ -21,6 +21,7 @@ public class MongoUserDAO {
 		try {
 			Query query = new Query();
 			query.addCriteria(Criteria.where("username").is(username));
+			query.addCriteria(Criteria.where("isactive").is("Y"));
 			user = mongoTemplate.findOne(query, MongoUser.class);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
