@@ -19,29 +19,43 @@ import org.springframework.stereotype.Component;
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class CorsFilter implements Filter {
-	
-	@Value("#{new Integer('${session.maxInteractiveTime}')}") private int maxInteractiveTime;
-	
+
+	@Value("#{new Integer('${session.maxInteractiveTime}')}")
+	private int maxInteractiveTime;
+
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) 
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
-        
+
 		httpResponse.setHeader("Access-Control-Allow-Origin", "*");
 		httpResponse.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE");
 		httpResponse.setHeader("Access-Control-Max-Age", "4800");
-		httpResponse.setHeader("Access-Control-Allow-Headers", "authorization,Content-Type, Accept, X-Requested-With, remember-me, "
-				+ "ApplicationId, LocalIPAddress, PublicIPAddress, SystemInformation, Browser, BrowserVersion");
-		
-		//Code added by Pranav
-		String applicationId = httpRequest.getHeader("ApplicationId") != null ? httpRequest.getHeader("ApplicationId").toString() : "";
-		String localIPAddress = httpRequest.getHeader("LocalIPAddress") != null ? httpRequest.getHeader("LocalIPAddress").toString() : "";
-		String publicIPAddress = httpRequest.getHeader("PublicIPAddress") != null ? httpRequest.getHeader("PublicIPAddress").toString() : "";
-		String systemInformation = httpRequest.getHeader("SystemInformation") != null ? httpRequest.getHeader("SystemInformation").toString() : "";
+		httpResponse.setHeader("Access-Control-Allow-Headers",
+				"authorization,Content-Type, Accept, X-Requested-With, remember-me, "
+						+ "ApplicationId, LocalIPAddress, PublicIPAddress, SystemInformation, Browser, BrowserVersion, TillId");
+
+		// Code added by Pranav
+		String applicationId = httpRequest.getHeader("ApplicationId") != null
+				? httpRequest.getHeader("ApplicationId").toString()
+				: "";
+		String localIPAddress = httpRequest.getHeader("LocalIPAddress") != null
+				? httpRequest.getHeader("LocalIPAddress").toString()
+				: "";
+		String publicIPAddress = httpRequest.getHeader("PublicIPAddress") != null
+				? httpRequest.getHeader("PublicIPAddress").toString()
+				: "";
+		String systemInformation = httpRequest.getHeader("SystemInformation") != null
+				? httpRequest.getHeader("SystemInformation").toString()
+				: "";
 		String browser = httpRequest.getHeader("Browser") != null ? httpRequest.getHeader("Browser").toString() : "";
-		String browserVersion = httpRequest.getHeader("BrowserVersion") != null ? httpRequest.getHeader("BrowserVersion").toString() : "";
-		
+		String browserVersion = httpRequest.getHeader("BrowserVersion") != null
+				? httpRequest.getHeader("BrowserVersion").toString()
+				: "";
+
+		String tillId = httpRequest.getHeader("TillId") != null ? httpRequest.getHeader("TillId").toString() : "";
+
 		CWIdentity.setSessionMaxInteractiveTime(maxInteractiveTime);
 		CWIdentity.setApplicationId(applicationId);
 		CWIdentity.setLocalIPAddress(localIPAddress);
@@ -49,23 +63,23 @@ public class CorsFilter implements Filter {
 		CWIdentity.setSystemInformation(systemInformation);
 		CWIdentity.setBrowser(browser);
 		CWIdentity.setBrowserVersion(browserVersion);
-	    //Code end by Pranav
-		
-		if("OPTIONS".equalsIgnoreCase(httpRequest.getMethod())) {
+		CWIdentity.setTillId(tillId);
+		// Code end by Pranav
+
+		if ("OPTIONS".equalsIgnoreCase(httpRequest.getMethod())) {
 			httpResponse.setStatus(HttpServletResponse.SC_OK);
-		}else {
+		} else {
 			chain.doFilter(request, response);
 		}
-		
 	}
-	
+
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-	
+
 	}
-	
+
 	@Override
 	public void destroy() {
-		
+
 	}
-} 
+}

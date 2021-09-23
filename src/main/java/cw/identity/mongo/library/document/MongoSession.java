@@ -27,6 +27,7 @@ public class MongoSession {
 	private String systemInformation;
 	private String browser;
 	private String browserVersion;
+	private String tillId;
 
 	public MongoSession() {
 
@@ -35,7 +36,7 @@ public class MongoSession {
 	public MongoSession(String id, String token, String userId, String name, String username, String clientId,
 			String applicationId, String applicationSecret, Date creationTime, Date lastAccessTime,
 			int maxInteractiveTime, String roleId, String bunitId, String localIPAddress, String publicIPAddress,
-			String systemInformation, String browser, String browserVersion) {
+			String systemInformation, String browser, String browserVersion, String tillId) {
 		super();
 		this.id = id;
 		this.token = token;
@@ -55,6 +56,7 @@ public class MongoSession {
 		this.systemInformation = systemInformation;
 		this.browser = browser;
 		this.browserVersion = browserVersion;
+		this.tillId = tillId;
 	}
 
 	public String getToken() {
@@ -191,6 +193,14 @@ public class MongoSession {
 
 	public void setBrowserVersion(String browserVersion) {
 		this.browserVersion = browserVersion;
+	}
+
+	public String getTillId() {
+		return tillId;
+	}
+
+	public void setTillId(String tillId) {
+		this.tillId = tillId;
 	}
 
 }

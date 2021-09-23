@@ -16,7 +16,8 @@ public class CWIdentity {
 	private static String SystemInformation;
 	private static String Browser;
 	private static String BrowserVersion;
-	
+	private static String tillId;
+
 	public static String getClientId() {
 		return clientId;
 	}
@@ -127,6 +128,14 @@ public class CWIdentity {
 
 	public static void setBrowserVersion(String browserVersion) {
 		BrowserVersion = browserVersion;
+	}
+
+	public static String getTillId() {
+		return tillId;
+	}
+
+	public static void setTillId(String tillId) {
+		CWIdentity.tillId = tillId;
 	}
 
 }
