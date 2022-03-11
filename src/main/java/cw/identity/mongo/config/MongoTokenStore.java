@@ -4,6 +4,7 @@ import cw.identity.config.CWIdentity;
 import cw.identity.mongo.library.document.MongoAccessToken;
 import cw.identity.mongo.library.document.MongoRefreshToken;
 import cw.identity.mongo.library.document.MongoSession;
+import cw.identity.mongo.library.document.MongoSessionActivity;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -85,6 +86,9 @@ public class MongoTokenStore implements TokenStore {
 		mongoSessionQuery.addCriteria(Criteria.where("token").is(token));
 		MongoSession mongoSession = mongoTemplate.findOne(mongoSessionQuery, MongoSession.class);
 
+		List<MongoSessionActivity> sessionActivityList = mongoTemplate
+				.find(new Query(Criteria.where("token").is(token)), MongoSessionActivity.class);
+
 		if (mongoSession == null) {
 			mongoSession = new MongoSession();
 
@@ -109,6 +113,15 @@ public class MongoTokenStore implements TokenStore {
 		mongoSession.setTillId(CWIdentity.getTillId());
 
 		mongoTemplate.save(mongoSession);
+
+		// Create Mongo Session Activity for Last Access Time
+		MongoSessionActivity sessionActivity = new MongoSessionActivity();
+		
+		sessionActivity.setToken(token);
+		sessionActivity.setLastAccessTime(new Date());
+		sessionActivity.setSequence(sessionActivityList.size() + 1);
+
+		mongoTemplate.save(sessionActivity);
 	}
 
 	@Override
