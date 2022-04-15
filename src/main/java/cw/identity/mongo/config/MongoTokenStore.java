@@ -111,12 +111,14 @@ public class MongoTokenStore implements TokenStore {
 		mongoSession.setBrowser(CWIdentity.getBrowser());
 		mongoSession.setBrowserVersion(CWIdentity.getBrowserVersion());
 		mongoSession.setTillId(CWIdentity.getTillId());
+		mongoSession.setDeviceType(CWIdentity.getDeviceType());
+		mongoSession.setDeviceUID(CWIdentity.getDeviceUID());
 
 		mongoTemplate.save(mongoSession);
 
 		// Create Mongo Session Activity for Last Access Time
 		MongoSessionActivity sessionActivity = new MongoSessionActivity();
-		
+
 		sessionActivity.setToken(token);
 		sessionActivity.setLastAccessTime(new Date());
 		sessionActivity.setSequence(sessionActivityList.size() + 1);

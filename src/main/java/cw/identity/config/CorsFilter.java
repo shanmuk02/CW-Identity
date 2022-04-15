@@ -33,8 +33,8 @@ public class CorsFilter implements Filter {
 		httpResponse.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE");
 		httpResponse.setHeader("Access-Control-Max-Age", "4800");
 		httpResponse.setHeader("Access-Control-Allow-Headers",
-				"authorization,Content-Type, Accept, X-Requested-With, remember-me, "
-						+ "ApplicationId, LocalIPAddress, PublicIPAddress, SystemInformation, Browser, BrowserVersion, TillId");
+				"authorization,Content-Type, Accept, X-Requested-With, remember-me, ApplicationId, "
+						+ "LocalIPAddress, PublicIPAddress, SystemInformation, Browser, BrowserVersion, TillId, deviceType, deviceUID");
 
 		// Code added by Pranav
 		String applicationId = httpRequest.getHeader("ApplicationId") != null
@@ -53,8 +53,11 @@ public class CorsFilter implements Filter {
 		String browserVersion = httpRequest.getHeader("BrowserVersion") != null
 				? httpRequest.getHeader("BrowserVersion").toString()
 				: "";
-
 		String tillId = httpRequest.getHeader("TillId") != null ? httpRequest.getHeader("TillId").toString() : "";
+		String deviceType = httpRequest.getHeader("deviceType") != null ? httpRequest.getHeader("deviceType").toString()
+				: "";
+		String deviceUID = httpRequest.getHeader("deviceUID") != null ? httpRequest.getHeader("deviceUID").toString()
+				: "";
 
 		CWIdentity.setSessionMaxInteractiveTime(maxInteractiveTime);
 		CWIdentity.setApplicationId(applicationId);
@@ -64,6 +67,8 @@ public class CorsFilter implements Filter {
 		CWIdentity.setBrowser(browser);
 		CWIdentity.setBrowserVersion(browserVersion);
 		CWIdentity.setTillId(tillId);
+		CWIdentity.setDeviceType(deviceType);
+		CWIdentity.setDeviceUID(deviceUID);
 		// Code end by Pranav
 
 		if ("OPTIONS".equalsIgnoreCase(httpRequest.getMethod())) {

@@ -17,6 +17,8 @@ public class CWIdentity {
 	private static String Browser;
 	private static String BrowserVersion;
 	private static String tillId;
+	private static String deviceType;
+	private static String deviceUID;
 
 	public static String getClientId() {
 		return clientId;
@@ -136,6 +138,22 @@ public class CWIdentity {
 
 	public static void setTillId(String tillId) {
 		CWIdentity.tillId = tillId;
+	}
+
+	public static String getDeviceType() {
+		return deviceType;
+	}
+
+	public static void setDeviceType(String deviceType) {
+		CWIdentity.deviceType = deviceType;
+	}
+
+	public static String getDeviceUID() {
+		return deviceUID;
+	}
+
+	public static void setDeviceUID(String deviceUID) {
+		CWIdentity.deviceUID = deviceUID;
 	}
 
 }

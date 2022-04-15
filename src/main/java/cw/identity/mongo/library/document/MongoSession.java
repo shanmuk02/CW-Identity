@@ -28,6 +28,8 @@ public class MongoSession {
 	private String browser;
 	private String browserVersion;
 	private String tillId;
+	private String deviceType;
+	private String deviceUID;
 
 	public MongoSession() {
 
@@ -201,6 +203,22 @@ public class MongoSession {
 
 	public void setTillId(String tillId) {
 		this.tillId = tillId;
+	}
+
+	public String getDeviceType() {
+		return deviceType;
+	}
+
+	public void setDeviceType(String deviceType) {
+		this.deviceType = deviceType;
+	}
+
+	public String getDeviceUID() {
+		return deviceUID;
+	}
+
+	public void setDeviceUID(String deviceUID) {
+		this.deviceUID = deviceUID;
 	}
 
 }
