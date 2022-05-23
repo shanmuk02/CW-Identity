@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE xml>
+<configuration> 
+<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+ <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy"> 
+ <fileNamePattern>cwidentity/cwidentity%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern> 
+ <!-- each archived file, size max 500MB -->
+ <maxFileSize>500MB</maxFileSize>
+ <!-- total size of all archive files, if total size > 2GB, it will delete old archived file -->
+ <totalSizeCap>3GB</totalSizeCap>
+ <!-- 4 days to keep -->
+ <maxHistory>4</maxHistory> 
+ </rollingPolicy> 
+ <encoder>
+<!-- <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{0} - %msg%n </Pattern> -->
+<Pattern> %date{dd-MM-yyyy;HH:mm:ss} %level = %line: %logger{20} - %msg%n </Pattern>4
+ </encoder> 
+ </appender> <root level="INFO"> <appender-ref ref="FILE" />
+ </root> 
+ </configuration>
